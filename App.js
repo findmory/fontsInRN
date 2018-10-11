@@ -1,81 +1,63 @@
 import React from 'react';
 import { Font } from 'expo';
-import { StyleSheet, Text, View, FlatList } from 'react-native';
-import { List, ListItem } from 'react-native-elements';
+import { StyleSheet, View } from 'react-native';
+import { List, ListItem, SearchBar, Text } from 'react-native-elements';
+import { SearchableFlatList } from 'react-native-searchable-list';
 
 import { FONTS } from './fontList';
 
 export default class App extends React.Component {
-  /* data for list needs to be in the format:
-  [
-    {
-      key: '0',
-      fontName: name
-    },
-    {
-      key: '1',
-      fontName: name
-    }
-  ]
-  */
   constructor(props) {
     super(props);
-    this.fontData = [];
-  }
-
-  generateFontData() {
-    let index = 1;
-    for (let font in FONTS) {
-      this.fontData.push({
-        key: index.toString(),
-        fontName: FONTS[font]
-      });
-      index++;
-    }
-  }
-
-  componentWillMount() {
-    this.generateFontData();
-    console.log(this.fontData);
+    this.state = {
+      searchTerm: '',
+      searchAttribute: '',
+      ignoreCase: true
+    };
+    this.fontData = FONTS;
   }
 
   renderRow = ({ item }) => {
-    return (
-      <ListItem
-        title={item.fontName}
-        titleStyle={{ fontFamily: item.fontName }}
-        hideChevron
-        containerStyle={styles.listItemContainer}
-        key={item.key}
-      />
-    );
+    return <Text fontFamily={item}>{item}</Text>;
   };
 
   render() {
     return (
-      <List containerStyle={styles.listContainer}>
-        <FlatList data={this.fontData} renderItem={this.renderRow} />
-      </List>
+      <View style={styles.search}>
+        <SearchBar
+          style={styles.search}
+          placeholder={'Search Font'}
+          onChangeText={searchTerm => this.setState({ searchTerm })}
+        />
+        <SearchableFlatList
+          searchTerm={this.state.searchTerm}
+          searchAttribute={this.state.searchAttribute}
+          ignoreCase={true}
+          data={this.fontData}
+          renderItem={this.renderRow}
+          keyExtractor={item => item}
+          style={styles.listItem}
+        />
+        />
+      </View>
     );
   }
 }
 
 const myColors = {
-  lightGrey: '#e0e0e0'
+  white: 'white'
 };
 
 const styles = StyleSheet.create({
-  container: {
+  search: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center'
+    marginTop: 20
   },
-  listItemContainer: {
+  listItem: {
     borderTopWidth: 0,
     borderBottomWidth: 0,
-    marginTop: 0,
-    marginBottom: 10,
-    backgroundColor: myColors.lightGrey
+    marginTop: 10,
+    marginBottom: 0,
+    backgroundColor: myColors.white
   }
 });
