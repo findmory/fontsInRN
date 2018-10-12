@@ -11,3 +11,7 @@ Based on the list found at [react-native-training/react-native-fonts](https://gi
 ### Use the arrows to adjust the font size
 
 ### Click on any font to copy to clipboard
+
+---
+
+Expo Demo [here](https://exp.host/@findmory/fontsInRN)
