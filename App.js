@@ -1,7 +1,7 @@
 import React from 'react';
 import { Font } from 'expo';
 import { StyleSheet, View } from 'react-native';
-import { List, ListItem, SearchBar, Text } from 'react-native-elements';
+import { List, ListItem, SearchBar, Text, Icon } from 'react-native-elements';
 import { SearchableFlatList } from 'react-native-searchable-list';
 
 import { FONTS } from './fontList';
@@ -12,20 +12,49 @@ export default class App extends React.Component {
     this.state = {
       searchTerm: '',
       searchAttribute: '',
-      ignoreCase: true
+      ignoreCase: true,
+      fontSize: 18
     };
     this.fontData = FONTS;
   }
 
+  componentWillMount() {
+    this.setState({
+      fontSize: 18
+    });
+  }
+
   renderRow = ({ item }) => {
-    return <Text fontFamily={item}>{item}</Text>;
+    return (
+      <Text
+        fontFamily={item}
+        style={(styles.text, { fontSize: this.state.fontSize })}
+      >
+        {item}
+      </Text>
+    );
   };
+
+  fontUp() {
+    let fontSize = this.state.fontSize + 1;
+    this.setState({
+      fontSize
+    });
+  }
+
+  fontDown() {
+    let fontSize = this.state.fontSize - 1;
+    this.setState({
+      fontSize
+    });
+  }
 
   render() {
     return (
-      <View style={styles.search}>
+      <View style={styles.container}>
         <SearchBar
-          style={styles.search}
+          lightTheme
+          containerStyle={styles.search}
           placeholder={'Search Font'}
           onChangeText={searchTerm => this.setState({ searchTerm })}
         />
@@ -38,26 +67,59 @@ export default class App extends React.Component {
           keyExtractor={item => item}
           style={styles.listItem}
         />
-        />
+        <View style={styles.buttons}>
+          <Icon
+            name="arrow-up"
+            type="font-awesome"
+            onPress={this.fontUp.bind(this)}
+            iconStyle={styles.icon}
+          />
+          <Text style={{ color: myColors.white }}>Font Size</Text>
+          <Icon
+            iconStyle={styles.icon}
+            name="arrow-down"
+            type="font-awesome"
+            onPress={this.fontDown.bind(this)}
+          />
+        </View>
       </View>
     );
   }
 }
 
 const myColors = {
-  white: 'white'
+  white: 'white',
+  lightBlue: '#6178EA'
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1
+  },
   search: {
-    flex: 1,
-    marginTop: 20
+    marginTop: 20,
+    backgroundColor: myColors.white
   },
   listItem: {
     borderTopWidth: 0,
     borderBottomWidth: 0,
     marginTop: 10,
     marginBottom: 0,
+    marginLeft: 5,
     backgroundColor: myColors.white
+  },
+  text: {
+    padding: 5
+  },
+  icon: {
+    color: myColors.white,
+    alignText: 'center',
+    marginLeft: 10,
+    marginRight: 10
+  },
+  buttons: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    backgroundColor: myColors.lightBlue
   }
 });
