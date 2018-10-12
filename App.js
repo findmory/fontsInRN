@@ -1,6 +1,12 @@
 import React from 'react';
 import { Font } from 'expo';
-import { StyleSheet, View } from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Clipboard,
+  Alert,
+  TouchableHighlight
+} from 'react-native';
 import { List, ListItem, SearchBar, Text, Icon } from 'react-native-elements';
 import { SearchableFlatList } from 'react-native-searchable-list';
 
@@ -26,12 +32,14 @@ export default class App extends React.Component {
 
   renderRow = ({ item }) => {
     return (
-      <Text
-        fontFamily={item}
-        style={(styles.text, { fontSize: this.state.fontSize })}
-      >
-        {item}
-      </Text>
+      <TouchableHighlight onPress={this.copyToClipboard.bind(this, item)}>
+        <Text
+          fontFamily={item}
+          style={(styles.text, { fontSize: this.state.fontSize })}
+        >
+          {item}
+        </Text>
+      </TouchableHighlight>
     );
   };
 
@@ -47,6 +55,11 @@ export default class App extends React.Component {
     this.setState({
       fontSize
     });
+  }
+
+  copyToClipboard(item) {
+    Clipboard.setString(item);
+    Alert.alert('Font', `Copied "${item}" to clipboard`);
   }
 
   render() {
