@@ -133,6 +133,8 @@ const styles = StyleSheet.create({
   buttons: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    backgroundColor: myColors.lightBlue
+    backgroundColor: myColors.lightBlue,
+    height: 40,
+    alignItems: 'center'
   }
 });

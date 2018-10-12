@@ -1,4 +1,4 @@
-# Display all of the Fonts Available in React Native out of the box
+# Searchable list of all fonts available in React Native out-of-the-box
 
 Based on the list found at [react-native-training/react-native-fonts](https://github.com/react-native-training/react-native-fonts)
 
@@ -7,3 +7,7 @@ Based on the list found at [react-native-training/react-native-fonts](https://gi
 - clone repo
 - `npm install`
 - `npm run start`
+
+### Use the arrows to adjust the font size
+
+### Click on any font to copy to clipboard

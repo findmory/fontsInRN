@@ -1,11 +1,13 @@
 {
   "expo": {
-    "name": "fontsInRN",
-    "description": "This project is really great.",
+    "name": "React-Native built-in font viewer",
+    "description": "Searchable list of all fonts available to React-Native.  Clicking a font also copies the name to the clipboard.",
     "slug": "fontsInRN",
     "privacy": "public",
     "sdkVersion": "30.0.0",
-    "platforms": ["ios"],
+    "platforms": [
+      "ios"
+    ],
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -22,6 +24,7 @@
     ],
     "ios": {
       "supportsTablet": true
-    }
+    },
+    "githubUrl": "https://github.com/findmory/fontsInRN"
   }
 }
